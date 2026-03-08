@@ -108,3 +108,4 @@ See `.env.example` for full list. Key vars:
 | 2026-03-08 | Full AETHON AI OS landing page built — 11 files, 1098 insertions |
 | 2026-03-08 | Full AETHON AI Platform built — auth, DB, streaming chat, 12 tools, 6 platform pages |
 | 2026-03-08 | Add self-evolution engine + founder section — 3 files, 273 insertions |
+| 2026-03-08 | Fix zod/v3 module error — upgrade zod to 3.25.76, add zod-to-json-schema, add .env.local for build |
