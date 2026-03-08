@@ -2,11 +2,12 @@
  * AETHON Self-Mutation Engine
  * 
  * Allows AETHON to read, analyze, and modify its own source code.
- * Includes backup/restore for safety and policy enforcement.
+ * Includes backup/restore for safety, policy enforcement, and security scanning.
  */
 
 import fs from 'fs/promises';
 import path from 'path';
+import { scanCode, isSafeForEvolution, type SecurityScanResult } from './security-scanner';
 
 const BACKUP_EXT = '.bak';
 
@@ -81,12 +82,14 @@ async function cleanupBackup(filePath: string): Promise<void> {
  * 
  * @param fileName - Relative path from project root (e.g., 'src/lib/tools/fs.ts')
  * @param improvedCode - The new code to write
+ * @param skipSecurityScan - Skip security scan (default: false)
  * @returns Result with success status and message
  */
 export async function evolveAethon(
   fileName: string, 
-  improvedCode: string
-): Promise<{ success: boolean; message: string; error?: string }> {
+  improvedCode: string,
+  skipSecurityScan: boolean = false
+): Promise<{ success: boolean; message: string; error?: string; securityResult?: SecurityScanResult }> {
   // Security: Only allow mutation of source files
   if (!isAllowedForMutation(fileName)) {
     return { 
@@ -97,6 +100,34 @@ export async function evolveAethon(
   }
 
   const targetPath = path.join(process.cwd(), fileName);
+  
+  // Step 0: Security scan before mutation
+  if (!skipSecurityScan) {
+    const securityCheck = isSafeForEvolution(improvedCode);
+    
+    if (!securityCheck.safe) {
+      const blockerList = securityCheck.blockers
+        .map(b => `- [${b.severity}] ${b.title} at line ${b.line}: ${b.recommendation}`)
+        .join('\n');
+      
+      return {
+        success: false,
+        message: '',
+        error: `Security scan FAILED - blocking self-evolution:\n${blockerList}`,
+        securityResult: scanCode(improvedCode)
+      };
+    }
+    
+    // Log warnings but allow evolution
+    if (securityCheck.warnings.length > 0) {
+      console.log(`[Self-Evolve] Security warnings for ${fileName}:`);
+      securityCheck.warnings.forEach(w => {
+        console.log(`  - [${w.severity}] ${w.title}: ${w.recommendation}`);
+      });
+    }
+    
+    console.log(`[Self-Evolve] Security scan passed for ${fileName}`);
+  }
   
   // Verify file exists before attempting mutation
   try {
@@ -121,9 +152,13 @@ export async function evolveAethon(
     // Step 3: Clean up backup after successful write
     await cleanupBackup(targetPath);
     
+    // Get final security result
+    const securityResult = scanCode(improvedCode);
+    
     return { 
       success: true, 
-      message: `🧬 AETHON self-evolved: ${fileName}` 
+      message: `🧬 AETHON self-evolved: ${fileName} (Security: ${securityResult.score}/100)`,
+      securityResult
     };
   } catch (error) {
     // Step 4: Rollback on failure
@@ -133,7 +168,8 @@ export async function evolveAethon(
     return { 
       success: false, 
       message: '',
-      error: `Self-evolution failed: ${error instanceof Error ? error.message : 'Unknown error'}` 
+      error: `Self-evolution failed: ${error instanceof Error ? error.message : 'Unknown error'}`,
+      securityResult: scanCode(improvedCode)
     };
   }
 }
