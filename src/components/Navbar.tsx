@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function Navbar() {
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 border-b border-white/5 bg-[#030712]/80 backdrop-blur-xl">
@@ -47,9 +49,12 @@ export default function Navbar() {
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
               Live System
             </span>
-            <button className="text-sm font-medium text-white bg-gradient-to-r from-cyan-500 to-violet-600 rounded-lg px-4 py-2 hover:opacity-90 transition-opacity">
-              Get Access
-            </button>
+            <Link
+              href="/chat"
+              className="text-sm font-medium text-white bg-gradient-to-r from-cyan-500 to-violet-600 rounded-lg px-4 py-2 hover:opacity-90 transition-opacity"
+            >
+              Launch App
+            </Link>
           </div>
         </div>
       </div>

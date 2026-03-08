@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { ClerkProvider } from "@clerk/nextjs";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -15,7 +16,14 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "AETHON — Autonomous AI Operating System",
   description:
-    "AETHON is an Autonomous AI Operating System and Agent Platform designed with real-world product architecture. Self-developing, self-improving, no demos — only real data.",
+    "AETHON is an AI Agent Platform with real tool calling, streaming chat, task automation, and self-mutation capabilities. Built by Nguyễn Văn Hoài Thương.",
+  keywords: ["AI", "Agent", "AIOS", "Autonomous", "Gemini", "Next.js"],
+  authors: [{ name: "Nguyễn Văn Hoài Thương" }],
+  openGraph: {
+    title: "AETHON — Autonomous AI Operating System",
+    description: "The most powerful AI Agent platform. Real tools. No demos.",
+    type: "website",
+  },
 };
 
 export default function RootLayout({
@@ -24,12 +32,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        {children}
-      </body>
-    </html>
+    <ClerkProvider>
+      <html lang="en">
+        <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+          {children}
+        </body>
+      </html>
+    </ClerkProvider>
   );
 }
