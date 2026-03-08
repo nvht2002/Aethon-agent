@@ -3,7 +3,8 @@
  * Displays the founder Nguyễn Văn Hoài Thương
  */
 
-import { User, Crown } from "lucide-react";
+import Image from "next/image";
+import { Crown } from "lucide-react";
 
 export default function FounderSection() {
   return (
@@ -29,10 +30,17 @@ export default function FounderSection() {
             <div className="absolute -inset-1 bg-gradient-to-r from-cyan-500 to-violet-600 rounded-2xl blur opacity-30 group-hover:opacity-60 transition-opacity duration-500" />
             
             <div className="relative bg-gray-900/80 backdrop-blur-sm border border-gray-800 rounded-2xl p-8 max-w-md">
-              {/* Avatar placeholder - gradient background */}
+              {/* Founder photo */}
               <div className="flex justify-center mb-6">
-                <div className="w-32 h-32 rounded-full bg-gradient-to-br from-cyan-500 to-violet-600 flex items-center justify-center shadow-2xl">
-                  <User className="w-16 h-16 text-white" />
+                <div className="w-32 h-32 rounded-full overflow-hidden border-2 border-cyan-500/50 shadow-2xl ring-4 ring-cyan-500/20">
+                  <Image 
+                    src="https://i.ibb.co/Nn7jG5kX/founder.jpg" 
+                    alt="Nguyễn Văn Hoài Thương"
+                    width={128}
+                    height={128}
+                    className="w-full h-full object-cover"
+                    unoptimized
+                  />
                 </div>
               </div>
 
