@@ -38,6 +38,7 @@ The project has been transformed from a landing page into a full AI Agent Platfo
   - lib/tools/terminal.ts — exec with denylist policy
   - lib/agent/logs.ts — audit log to aethon_logs table
   - lib/agent/policy.ts — FS allowlist, terminal denylist, dangerous tool guards
+  - lib/ai/self-evolve.ts — self-mutation engine with backup/restore
   - Platform layout with sidebar nav (Chat, Tasks, Agents, Integrations, Settings)
   - Chat page with real streaming UI, tool invocation display, suggestions
   - Settings page — model, temperature, backend endpoint, tool toggles (DB-persisted)
@@ -69,12 +70,14 @@ The project has been transformed from a landing page into a full AI Agent Platfo
 | `src/lib/db/supabase.ts` | Supabase client (public + admin) | ✅ Ready |
 | `src/lib/agent/policy.ts` | Security policy layer | ✅ Ready |
 | `src/lib/agent/logs.ts` | Audit logging to DB | ✅ Ready |
+| `src/lib/ai/self-evolve.ts` | Self-mutation engine | ✅ Ready |
 | `src/lib/tools/serper.ts` | Google Search tool | ✅ Ready |
 | `src/lib/tools/memory.ts` | Vector memory tool | ✅ Ready |
 | `src/lib/tools/vercel.ts` | Vercel deploy tool | ✅ Ready |
 | `src/lib/tools/github.ts` | GitHub write/PR tool | ✅ Ready |
 | `src/lib/tools/fs.ts` | File system tool | ✅ Ready |
 | `src/lib/tools/terminal.ts` | Terminal tool | ✅ Ready |
+| `src/components/FounderSection.tsx` | Founder card | ✅ Ready |
 | `src/components/` | Landing page components (11 files) | ✅ Ready |
 | `supabase/schema.sql` | Complete DB migration | ✅ Ready |
 | `.env.example` | Env var documentation | ✅ Ready |
@@ -104,3 +107,4 @@ See `.env.example` for full list. Key vars:
 | Initial | Template created with base setup |
 | 2026-03-08 | Full AETHON AI OS landing page built — 11 files, 1098 insertions |
 | 2026-03-08 | Full AETHON AI Platform built — auth, DB, streaming chat, 12 tools, 6 platform pages |
+| 2026-03-08 | Add self-evolution engine + founder section — 3 files, 273 insertions |
