@@ -627,3 +627,92 @@ create table if not exists aethon_logs (
 
 create index if not exists aethon_logs_user_idx on aethon_logs(user_id, created_at desc);
 create index if not exists aethon_logs_agent_idx on aethon_logs(agent_id, created_at desc);
+
+-- ═══════════════════════════════════════════════════════════════════════════════
+-- 9. WEBHOOKS SYSTEM
+-- ═══════════════════════════════════════════════════════════════════════════════
+
+-- Webhooks for external integrations
+create table if not exists aethon_webhooks (
+  id uuid primary key default uuid_generate_v4(),
+  user_id text not null,
+  name text not null,
+  url text not null,
+  events text[] not null,
+  secret text not null,
+  enabled boolean default true,
+  created_at timestamptz default now(),
+  updated_at timestamptz default now()
+);
+
+-- Webhook delivery logs
+create table if not exists aethon_webhook_logs (
+  id uuid primary key default uuid_generate_v4(),
+  webhook_id uuid references aethon_webhooks(id) on delete cascade,
+  event_type text not null,
+  payload jsonb,
+  status text not null check (status in ('success', 'failed', 'pending')),
+  response_code int,
+  error_message text,
+  attempts int default 0,
+  created_at timestamptz default now()
+);
+
+create index if not exists aethon_webhooks_user_idx on aethon_webhooks(user_id);
+create index if not exists aethon_webhook_logs_webhook_idx on aethon_webhook_logs(webhook_id, created_at desc);
+
+-- ═══════════════════════════════════════════════════════════════════════════════
+-- 10. CUSTOM AGENTS
+-- ═══════════════════════════════════════════════════════════════════════════════
+
+-- Custom agent configurations
+create table if not exists aethon_custom_agents (
+  id uuid primary key default uuid_generate_v4(),
+  user_id text not null,
+  name text not null,
+  description text,
+  avatar_url text,
+  system_prompt text not null,
+  tools jsonb default '[]',
+  config jsonb default '{}',
+  created_at timestamptz default now(),
+  updated_at timestamptz default now()
+);
+
+create index if not exists aethon_custom_agents_user_idx on aethon_custom_agents(user_id);
+
+-- ═══════════════════════════════════════════════════════════════════════════════
+-- 11. NOTIFICATIONS
+-- ═══════════════════════════════════════════════════════════════════════════════
+
+-- User notifications
+create table if not exists aethon_notifications (
+  id uuid primary key default uuid_generate_v4(),
+  user_id text not null,
+  type text not null,
+  title text not null,
+  message text,
+  data jsonb,
+  read boolean default false,
+  created_at timestamptz default now()
+);
+
+create index if not exists aethon_notifications_user_idx on aethon_notifications(user_id, read, created_at desc);
+
+-- ═══════════════════════════════════════════════════════════════════════════════
+-- 12. FILES
+-- ═══════════════════════════════════════════════════════════════════════════════
+
+-- File storage metadata
+create table if not exists aethon_files (
+  id uuid primary key default uuid_generate_v4(),
+  user_id text not null,
+  name text not null,
+  path text not null,
+  size int,
+  mime_type text,
+  metadata jsonb,
+  created_at timestamptz default now()
+);
+
+create index if not exists aethon_files_user_idx on aethon_files(user_id, created_at desc);

@@ -53,6 +53,7 @@ const AI_NAV: NavItem[] = [
 ];
 
 const SYSTEM_NAV: NavItem[] = [
+  { label: "Webhooks", href: "/webhooks", icon: Zap },
   { label: "Integrations", href: "/integrations", icon: Puzzle },
   { label: "Plugins", href: "/plugins", icon: Package },
   { label: "Deploy", href: "/deploy", icon: HardDrive },
