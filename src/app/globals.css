@@ -1,1 +1,68 @@
 @import "tailwindcss";
+
+@layer base {
+  :root {
+    --color-aethon-cyan: #00f5ff;
+    --color-aethon-purple: #7c3aed;
+    --color-aethon-blue: #2563eb;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: #030712;
+    color: #f9fafb;
+  }
+}
+
+@layer utilities {
+  .text-gradient-cyan {
+    background: linear-gradient(135deg, #00f5ff 0%, #7c3aed 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .text-gradient-purple {
+    background: linear-gradient(135deg, #7c3aed 0%, #2563eb 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .glow-cyan {
+    box-shadow: 0 0 30px rgba(0, 245, 255, 0.15), 0 0 60px rgba(0, 245, 255, 0.05);
+  }
+
+  .glow-purple {
+    box-shadow: 0 0 30px rgba(124, 58, 237, 0.2), 0 0 60px rgba(124, 58, 237, 0.08);
+  }
+
+  .border-glow-cyan {
+    border-color: rgba(0, 245, 255, 0.3);
+  }
+
+  .border-glow-purple {
+    border-color: rgba(124, 58, 237, 0.4);
+  }
+
+  .grid-bg {
+    background-image:
+      linear-gradient(rgba(0, 245, 255, 0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0, 245, 255, 0.03) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+
+  .card-glass {
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+  }
+
+  .card-glass:hover {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(0, 245, 255, 0.2);
+  }
+}

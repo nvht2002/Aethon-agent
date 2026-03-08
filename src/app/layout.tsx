@@ -13,8 +13,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Next.js Template",
-  description: "A minimal Next.js starter template",
+  title: "AETHON — Autonomous AI Operating System",
+  description:
+    "AETHON is an Autonomous AI Operating System and Agent Platform designed with real-world product architecture. Self-developing, self-improving, no demos — only real data.",
 };
 
 export default function RootLayout({
