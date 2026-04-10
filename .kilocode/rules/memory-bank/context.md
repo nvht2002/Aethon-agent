@@ -82,6 +82,14 @@ The project has been transformed from a landing page into a full AI Agent Platfo
 | `supabase/schema.sql` | Complete DB migration | ✅ Ready |
 | `.env.example` | Env var documentation | ✅ Ready |
 | `.kilocode/` | AI context & recipes | ✅ Ready |
+| **Terminal** | **Mobile Shell Terminal** | |
+| `src/app/terminal/page.tsx` | Terminal page (client-side) | ✅ Ready |
+| `src/app/terminal/layout.tsx` | Terminal layout without auth | ✅ Ready |
+| `src/app/api/terminal/route.ts` | Terminal execute API (POST) | ✅ Ready |
+| `src/components/Terminal.tsx` | xterm.js terminal component | ✅ Ready |
+| `src/components/TerminalWrapper.tsx` | Client wrapper for dynamic import | ✅ Ready |
+| `src/lib/terminal/sessions.ts` | Session manager | ✅ Ready |
+| `src/lib/terminal/shell.ts` | Shell executor | ✅ Ready |
 
 ## Design System
 
@@ -113,3 +121,4 @@ See `.env.example` for full list. Key vars:
 | 2026-03-08 | Add Webhooks System - Event-driven automation with 13 event types, HMAC validation |
 | 2026-03-08 | Add Billing System - Usage tracking with Free/Pro/Team/Enterprise plans |
 | 2026-03-08 | Add Notification System - Real-time alerts with 10 notification types |
+| 2026-04-10 | **Mobile Shell Terminal** — Real shell terminal for iPhone with xterm.js, real commands via child_process, session management, mobile touch toolbar |

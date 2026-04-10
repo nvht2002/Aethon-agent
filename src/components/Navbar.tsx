@@ -45,6 +45,12 @@ export default function Navbar() {
 
           {/* CTA */}
           <div className="flex items-center gap-3">
+            <Link
+              href="/terminal"
+              className="text-gray-400 hover:text-cyan-400 text-sm transition-colors hidden sm:block"
+            >
+              Terminal
+            </Link>
             <span className="hidden sm:inline-flex items-center gap-1.5 text-xs text-emerald-400 bg-emerald-400/10 border border-emerald-400/20 rounded-full px-3 py-1">
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
               Live System
